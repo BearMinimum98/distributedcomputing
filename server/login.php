@@ -5,15 +5,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>DistrProg | Login</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://images.kingdomofloathing.com/scripts/md5.js" type="text/javascript"></script>
 </head>
 <body>
   <section class="container">
     <div class="login">
       <h1 style="font-family: 'Open Sans Condensed', sans-serif;">AP CompSci Final Project</h1>
-      <form method="post" action="/login" onsubmit="validate">
+      <form method="post" action="processlogin.php" onsubmit="return validate();">
         <p><input type="text" name="username" value="" placeholder="Username or Email"></p>
-        <p><input type="password" name="password" value="" placeholder="Password"></p>
-		<input type="hidden" id="challenge" value=<?php ?> />
+        <p><input type="password" name="password" id="password" value="" placeholder="Password"></p>
+		<input type="hidden" id="challenge" value="<?php 
+			echo bin2hex(openssl_random_pseudo_bytes(16));
+		?>" />
 		<input type="hidden" id="response" value="" />
         <p class="remember_me">
           <label style="font-family: 'Open Sans Condensed', sans-serif;">
@@ -39,6 +42,8 @@
 	}
 	function validate() {
 		document.getElementById("response").value = hex_md5(queryObj["challenge"] + password);
+        document.getElementById("password").value = "";
+        return false;
 	}
   </script>
 </body>
