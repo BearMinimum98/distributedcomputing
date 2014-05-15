@@ -43,7 +43,7 @@
 	function validate() {
 		document.getElementById("response").value = hex_md5(queryObj["challenge"] + password);
         document.getElementById("password").value = "";
-        return false;
+        return true;
 	}
   </script>
 </body>
