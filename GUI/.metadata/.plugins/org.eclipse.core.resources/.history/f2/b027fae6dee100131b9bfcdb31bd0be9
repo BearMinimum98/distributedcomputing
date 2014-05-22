@@ -1,0 +1,102 @@
+import java.awt.*;
+import javax.swing.*;
+import java.net.*;
+import java.io.*;
+import org.json.simple.*;
+import org.apache.commons.io.*;
+
+
+public class test {
+	public static void main(String[] args) {
+		try {
+			if (System.getProperty("os.name").startsWith("Windows")) {
+				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			} else {
+				UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			}
+        } catch (UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        } catch (InstantiationException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+	}
+	private static void createAndShowGUI() {
+		JFrame frame = new JFrame("TabDemo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ 
+        //Create and set up the content pane.
+        test demo = new test();
+        demo.addComponentToPane(frame.getContentPane());
+ 
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
+	}
+	public void addComponentToPane(Container pane) {
+		JTabbedPane tpane = new JTabbedPane();
+        JPanel pane1 = new JPanel() {
+        	public Dimension getPreferredSize() {
+                Dimension size = super.getPreferredSize();
+                size.width += 100;
+                return size;
+            }
+        };
+        JPanel pane2 = new JPanel();
+        
+        pane1.add(new JLabel("Hello, world!"));
+        pane1.add(new JButton("Press me!"));
+        JTextArea projectParse = new JTextArea(100, 100);
+        projectParse.setLineWrap(true);
+        projectParse.setEditable(false);
+        String projectJSON = "";
+        try {
+        	URL getProjects = new URL("http://omniwarenetworks.com/projects/distributedcomputing/show.php");
+        	BufferedReader br = new BufferedReader(new InputStreamReader(getProjects.openStream()));
+        	String inputLine;
+        	while ((inputLine = br.readLine()) != null) {
+        		projectJSON += inputLine;
+        	}
+        	br.close();
+        } catch (Exception e) {
+        	
+        }
+        JSONArray arr = (JSONArray)JSONValue.parse(projectJSON);
+        for (Object o : arr) {
+        	JSONObject jo = (JSONObject) o;
+        	try {
+        		File dir = new File(".projects");
+        		if (dir.isDirectory()) {
+        			File f = new File(".projects/" + jo.get("code"));
+        			if (!f.exists()) {
+        				FileUtils.copyURLToFile(new URL("http://omniwarenetworks.com/projects/distributedcomputing/" + jo.get("path")), f);
+        			}
+        		} else {
+        			dir.mkdir();
+        			if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
+        				Runtime.getRuntime().exec("attrib -s -h -r " + dir.getAbsolutePath());
+        			}
+        			File f = new File(".projects/" + jo.get("code"));
+        			if (!f.exists()) {
+        				FileUtils.copyURLToFile(new URL("http://omniwarenetworks.com/projects/distributedcomputing/" + jo.get("path")), f);
+        			}
+        		}
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        projectParse.setText(projectJSON);
+        pane2.add(projectParse);
+        tpane.addTab("test", pane1);
+        tpane.addTab("Stuff", pane2);
+        pane.add(tpane, BorderLayout.CENTER);
+	}
+}
