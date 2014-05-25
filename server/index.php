@@ -1,3 +1,7 @@
+<?php
+	// check who's logged in here and store in $username
+	$username = "";
+?>
 <!DOCTYPE html>
 <html lang="en"><head>
     <meta charset="utf-8">
@@ -40,7 +44,7 @@
           <a class="brand" href="#">Distributed Programming</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Kevin Zhou</a>
+              Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
             </p>
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
@@ -89,17 +93,17 @@
           <div class="row-fluid">
             <div class="span4">
               <h2>Step 1</h2>
-              <p>Download our desktop client. This will be neccesary to execute whatever the hell Kevin Zhou wants to do with your computer.</p>
+              <p>Download our desktop client. This will be neccesary to execute any projects that reside on our server.</p>
               <p><a class="btn" href="#">Download Here»</a></p>
             </div><!--/span-->
             <div class="span4">
               <h2>Step 2</h2>
-              <p>Make sure you have computing space available in your computer and do some other stuff. KEVIN ADD STUFF HERE IDK WHAT TO PUT FOR CONTENT.</p>
+              <p>Make sure you have computing space available in your computer for the projects. If you do not, the programs will not be downloaded, and you won't earn as much as you can.</p>
               <p><a class="btn" href="#">View details »</a></p>
             </div><!--/span-->
             <div class="span4">
               <h2>Step 3</h2>
-              <p>Run the client for the desired amount of time blah blah blah kevin please add more stuff I still don't know how this works.</p>
+              <p>Run the client for the desired amount of time. The server will record your computing hours and credit you accordingly</p>
               <p><a class="btn" href="#">View details »</a></p>
             </div><!--/span-->
           </div><!--/row-->
