@@ -20,7 +20,7 @@
 		<input type="hidden" id="response" value="" />
 		<p class="remember_me">
 			<label style="font-family: 'Open Sans Condensed', sans-serif;">
-			<input type="checkbox" name="remember_me" id="remember_me" > 
+			<input type="checkbox" name="remember_me" id="remember_me" > quick
 			Remember me on this computer
 			</label>
 		</p>

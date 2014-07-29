@@ -3,24 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>DistrProg | Login</title>
+  <title>[NAME] | Login</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <script>
+    var gui = require('nw.gui');
+    var Window = gui.Window.get();
+    var markdown = require('markdown').markdown;
+    Window.enterKioskMode();
+    Window.enterFullscreen();
+    Window.setAlwaysOnTop(true);
+    Window.on("blur", function() {
+      alert("blurred");
+      Window.focus();
+      Window.show();
+    });
+  </script>
   <section class="container">
     <div class="login">
-      <h1 style="font-family: 'Open Sans Condensed', sans-serif;">Kevin's Troll Distributed Programming Project Login</h1>
+      <h1 style="font-family: 'Open Sans Condensed', sans-serif;">[NAME]: Student Client</h1>
       <form method="post" action="/login">
-        <p><input type="text" name="username" value="" placeholder="Username or Email"></p>
-        <p><input type="password" name="password" value="" placeholder="Password"></p>
+        <p><input type="text" name="user" value="" placeholder="Username or Email"></p>
+        <p><input type="password" name="pw" value="" placeholder="Password"></p>
         <p class="remember_me">
           <label style="font-family: 'Open Sans Condensed', sans-serif;">
             <input type="checkbox" name="remember_me" id="remember_me" > 
             Remember me on this computer
           </label>
         </p>
-        <p class="submit"><input type="submit" name="commit" value="Login"></p>
-        <span style="text-align: center;padding: 8px 0;display: block;color: red;"> {$error} </span>
+        <p class="yolo"><input href="student.html" value="student.html"></p>
       </form>
     </div>
   </section>
